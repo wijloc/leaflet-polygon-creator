@@ -12,11 +12,8 @@ const icon = L.icon({
   popupAnchor: [170, 2],
 });
 
-let latlngs=[
-[-20.706786, -42.82791],
-[-20.706786, -42.924957],
-[-20.797868, -42.924957],
-[-20.797868, -42.82791]];
+console.log(document.querySelector('[name=latlngs]').value)
+let latlngs = JSON.parse(document.querySelector('[name=latlngs]').value);
 let polygon;
 
 updatePolygon()

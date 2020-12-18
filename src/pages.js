@@ -71,7 +71,15 @@ module.exports = {
         `SELECT id, area, name FROM polygons WHERE id = ${id}`
       );
       const polygon = results[0];
-      return res.render('polygon', {polygon})
+
+      const pointsResult = await db.all(
+        `SELECT lat, lng FROM points WHERE polygon_id = ${id}`
+      );
+      const points = [];
+      pointsResult.forEach(element => {
+        points.push([element.lat, element.lng])
+      });
+      return res.render('polygon', {polygon, points: JSON.stringify(points)})
     } catch (err) {
       console.log(err);
       return res.send("Erro no banco de dados!");
