@@ -1,0 +1,25 @@
+{
+  "name": "leaflet-polygon-creator",
+  "version": "1.0.0",
+  "description": "Create polygon with leaflet",
+  "scripts": {
+    "dev": "nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wijloc/leaflet-polygon-creator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wijloc/leaflet-polygon-creator/issues"
+  },
+  "homepage": "https://github.com/wijloc/leaflet-polygon-creator#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "hbs": "^4.1.1",
+    "nodemon": "^2.0.6",
+    "sqlite-async": "^1.1.1"
+  }
+}

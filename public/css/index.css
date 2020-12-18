@@ -1,0 +1,73 @@
+body{
+  background-color: #312E38;
+  background: url('/images/landing.jpg') no-repeat;
+  background-size: cover;
+
+  display: flex;
+}
+
+#container{  
+  background-color: rgb(128,128,128, 0.6);
+  margin: 60px;
+  border-radius: 4rem;
+  padding: 2rem;
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+header{
+  display: flex;
+  justify-content: space-between;
+}
+
+main{
+  margin: 20px auto;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+main p{
+  font-size: 8rem;
+  text-align: center;
+}
+
+#container a {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 8rem;
+  height: 8rem;
+  background: #fff;
+
+  border: none;
+  border-radius: 3rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: auto;
+
+  transition: background 0.2s;
+  animation-delay: 250ms;
+}
+
+.github-container{
+  position: absolute;
+  bottom: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+a{
+  text-decoration: none;
+  color: #fff;
+  background-color: #312E38;
+  padding: 10px;
+  border-radius: 1.6rem;
+}
