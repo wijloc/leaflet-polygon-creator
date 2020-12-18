@@ -41,7 +41,7 @@ function undo(){
 
 function centerPolygon(){
   // zoom the map to the polygon
-  map.fitBounds(polygon.getBounds());
+  polygon.getBounds().southWest && polygon.getBounds().northEast && map.fitBounds(polygon.getBounds());
 }
 
 function updatePolygon(){
