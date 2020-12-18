@@ -1,5 +1,6 @@
 const Database = require("./database/db");
 const savePolygon = require("./database/savePolygon");
+const editPolygon = require("./database/editPolygon");
 
 module.exports = {
   index(req, res) {
@@ -21,19 +22,28 @@ module.exports = {
     return res.render("polygon");
   },
   async savePolygon(req, res) {
-    const fields = req.body;
+    const {id, area, name} = req.body;    
 
     //validar se todos os campos estão preenchidos
-    if (Object.values(fields).includes("")) {
+    if (Object.values({area, name}).includes("")) {
       return res.send("Todos os campos devem ser preenchidos!");
     }
 
     try {      
       const db = await Database;
-      await savePolygon(db, {
-        name: fields.name,
-        area: fields.area,
-      });
+
+      if (id){
+        await editPolygon(db, {
+          id: id,
+          name: name,
+          area: area,
+        });
+      } else {
+        await savePolygon(db, {
+          name: name,
+          area: area,
+        });
+      }      
 
       //redirecionamento
       return res.redirect("/polygons");

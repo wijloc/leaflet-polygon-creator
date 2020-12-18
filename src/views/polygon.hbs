@@ -24,6 +24,11 @@
   <div id="container">
       <form action="save-polygon" method="post">
         <fieldset>
+          {{#if polygon.id}}
+            <input hidden name="id" value="{{polygon.id}}" />
+          {{else}}
+            <input hidden name="id" />
+          {{/if}}          
           <div class="input-block">
             <label for="area">Area</label>
             <input id="area" name="area" required value="{{polygon.area}}">
