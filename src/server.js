@@ -24,4 +24,4 @@ server
 .post("/save-polygon", pages.savePolygon)
 
 //ligar o servidor
-server.listen(5500);
+server.listen(process.env.PORT || 5500);
