@@ -19,7 +19,7 @@ let latlngs=[
 [-20.797868, -42.82791]];
 let polygon;
 
-drawPolygon()
+updatePolygon()
 
 map.on('click', (event) => {
     const lat = event.latlng.lat;
@@ -27,7 +27,7 @@ map.on('click', (event) => {
 
     latlngs.push([lat, lng]);
     
-    drawPolygon()    
+    updatePolygon()    
 })
 
 function undo(){
@@ -36,7 +36,7 @@ function undo(){
   }
 
   latlngs.pop();
-  drawPolygon()
+  updatePolygon()
 }
 
 function centerPolygon(){
@@ -44,7 +44,7 @@ function centerPolygon(){
   map.fitBounds(polygon.getBounds());
 }
 
-function drawPolygon(){
+function updatePolygon(){
   polygon && map.removeLayer(polygon);
 
   //add icon layer
@@ -53,6 +53,8 @@ function drawPolygon(){
   const listPointsContainer = document.getElementById("list-points");  
 
   listPointsContainer.innerHTML = '';
+  
+  document.querySelector('[name=latlngs]').value = JSON.stringify(latlngs);
 
   latlngs.forEach((latlng, index) => {
     listPointsContainer.insertAdjacentHTML("beforeend", 
@@ -65,5 +67,5 @@ function drawPolygon(){
 
 function deletePoint(index){
   latlngs.splice(index, 1)
-  drawPolygon()
+  updatePolygon()
 }

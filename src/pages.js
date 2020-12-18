@@ -1,6 +1,8 @@
 const Database = require("./database/db");
 const savePolygon = require("./database/savePolygon");
 const editPolygon = require("./database/editPolygon");
+const replacePoints = require("./database/replacePoints");
+const insertPoints = require("./database/insertPoints");
 
 module.exports = {
   index(req, res) {
@@ -22,7 +24,9 @@ module.exports = {
     return res.render("polygon");
   },
   async savePolygon(req, res) {
-    const {id, area, name} = req.body;    
+    const {id, area, name, latlngs: textLatlngs} = req.body;
+    
+    latlngs = JSON.parse(textLatlngs);
 
     //validar se todos os campos estão preenchidos
     if (Object.values({area, name}).includes("")) {
@@ -38,10 +42,17 @@ module.exports = {
           name: name,
           area: area,
         });
+        await replacePoints(db, {
+          id: id,
+          points: latlngs
+        });
       } else {
         await savePolygon(db, {
           name: name,
           area: area,
+        });
+        await insertPoints(db, {          
+          points: latlngs
         });
       }      
 
