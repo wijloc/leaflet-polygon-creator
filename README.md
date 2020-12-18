@@ -1,10 +1,10 @@
-## Instalação do projeto
-Foi utilizado o gerenciador de pacotes: yarn. Para instalação do projeto basta executar o comando:
+## Project installation
+The yarn package manager was used. To install the project just run the command:
 
 > yarn install
 
-## Inicialização do servidor
+## Server startup
 
 > yarn start
 
-Se tudo ocorrer como esperado, a página estará disponível em localhost:5500 por padrão.
+If everything goes as expected, the page will be available on localhost: 5500 by default.
