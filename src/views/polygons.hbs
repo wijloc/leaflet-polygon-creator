@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- adaptação para telas menores-->
+  <title>Willian Oliveira - Map</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
+  <!-- Make sure you put this AFTER Leaflet's CSS -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+  <link rel="icon" href="/images/logo-icon.png" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/polygons.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;800&display=swap" rel="stylesheet" />
+</head>
+
+<body id="body">
+  <div id="container">
+    <header>
+      <h1>Polygons</h1>
+    </header>
+    <main>
+      <ul>
+      {{#each polygons}}
+        <li>{{this.id}} {{this.area}} {{this.name}}</li>
+      {{/each}}
+      </ul>
+    </main>
+    <footer>
+      <h1>2020</h1>      
+    </footer>
+    
+    <a href="/create-polygon" title="Create Polygon">
+      <img src="/images/plus.svg" alt="Go to Create Polygon" />
+    </a>
+  </div>
+  <div class="github-container">
+    <a href="http://github.com/wijloc/leaflet-polygon-creator" target="_blank">Available on GitHub</a>
+  </div>  
+</body>
+
+</html>

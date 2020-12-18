@@ -18,6 +18,9 @@ server
 
 //criar rotas da aplicacao
 .get("/", pages.index)
+.get('/polygons', pages.polygons)
+.get('/create-polygon', pages.createPolygon)
+.post("/save-polygon", pages.savePolygon)
 
 //ligar o servidor
 server.listen(5500);
