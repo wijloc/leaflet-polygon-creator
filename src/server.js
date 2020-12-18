@@ -25,3 +25,7 @@ server
 
 //ligar o servidor
 server.listen(process.env.PORT || 5500);
+
+//TODO feat: delete polygons
+//TODO fix: validate if polygon is empty
+//TODO feat: database
