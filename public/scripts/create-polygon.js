@@ -12,11 +12,14 @@ const icon = L.icon({
   popupAnchor: [170, 2],
 });
 
-console.log(document.querySelector('[name=latlngs]').value)
-let latlngs = JSON.parse(document.querySelector('[name=latlngs]').value);
+let latlngs = [];
+if (document.querySelector('[name=latlngs]').value){
+  latlngs = JSON.parse(document.querySelector('[name=latlngs]').value);
+}
 let polygon;
 
 updatePolygon()
+centerPolygon()
 
 map.on('click', (event) => {
     const lat = event.latlng.lat;
