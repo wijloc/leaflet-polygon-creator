@@ -5,11 +5,37 @@ body{
 
   display: flex;
   min-height: 100vh;
+  position: relative;
+}
+
+aside{
+  width: 80px;
+  height: 100%;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;  
+}
+
+aside a {
+  width: 8rem;
+  height: 8rem;
+  background: #000;
+
+  border: none;
+  border-radius: 3rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-left: 10px;
 }
 
 #container{  
   background-color: rgb(128,128,128, 0.6);
-  margin: 60px;
+  margin: 40px 80px 80px 0;
   border-radius: 4rem;
   padding: 2rem;
   width: 100%;
