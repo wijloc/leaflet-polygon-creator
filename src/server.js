@@ -20,6 +20,7 @@ server
 .get("/", pages.index)
 .get('/polygons', pages.polygons)
 .get('/create-polygon', pages.createPolygon)
+.get('/polygon', pages.polygon)
 .post("/save-polygon", pages.savePolygon)
 
 //ligar o servidor

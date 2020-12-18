@@ -28,7 +28,7 @@
     <main>
       <ul>
       {{#each polygons}}
-        <li>{{this.id}} {{this.area}} {{this.name}}</li>
+        <li><a href="polygon?id={{this.id}}">{{this.area}} - {{this.name}}</a></li>
       {{/each}}
       </ul>
     </main>
@@ -36,7 +36,7 @@
       <h1>2020</h1>      
     </footer>
     
-    <a href="/create-polygon" title="Create Polygon">
+    <a id="addNewPolygon" href="/create-polygon" title="Create Polygon">
       <img src="/images/plus.svg" alt="Go to Create Polygon" />
     </a>
   </div>

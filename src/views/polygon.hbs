@@ -25,13 +25,13 @@
       <form action="save-polygon" method="post">
         <fieldset>
           <div class="input-block">
-            <label for="name">Name</label>
-            <input id="name" name="name" required />
+            <label for="area">Area</label>
+            <input id="area" name="area" required value="{{polygon.area}}">
           </div>
           <div class="input-block">
-            <label for="area">Area</label>
-            <input id="area" name="area" required />
-          </div>
+            <label for="name">Name</label>
+            <input id="name" name="name" required value="{{polygon.name}}"/>
+          </div>          
         
 
         <button type="submit" title="Save Polygon">

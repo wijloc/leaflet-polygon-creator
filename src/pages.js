@@ -11,7 +11,6 @@ module.exports = {
       const polygons = await db.all(
         `SELECT id, area, name FROM polygons`
       );
-      console.log(polygons)
       return res.render("polygons", { polygons });
     } catch (err) {
       console.log(err);
@@ -19,11 +18,10 @@ module.exports = {
     }
   },
   createPolygon(req, res) {
-    return res.render("create-polygon");
+    return res.render("polygon");
   },
   async savePolygon(req, res) {
     const fields = req.body;
-    console.log(fields)
 
     //validar se todos os campos estão preenchidos
     if (Object.values(fields).includes("")) {
@@ -44,4 +42,19 @@ module.exports = {
       return res.send("Erro no banco de dados!");
     }
   },
+  async polygon(req, res){
+    id = req.query.id;
+    try{
+      const db = await Database;
+      const results = await db.all(
+        `SELECT id, area, name FROM polygons WHERE id = ${id}`
+      );
+      const polygon = results[0];
+      return res.render('polygon', {polygon})
+    } catch (err) {
+      console.log(err);
+      return res.send("Erro no banco de dados!");
+    }
+    
+  }
 }
