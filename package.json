@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Create polygon with leaflet",
   "scripts": {
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
   },
   "repository": {
     "type": "git",
