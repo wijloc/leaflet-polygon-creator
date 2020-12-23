@@ -50,9 +50,11 @@
           </div>          
         
 
+        {{#unless polygon.id}}
         <button type="submit" title="Save Polygon">
           Save
         </button>
+        {{/unless}}
         
         </fieldset>
       
@@ -67,15 +69,19 @@
           </div>
           <div id="rightpanel">
             <div class="toolbar">
+              {{#unless polygon.id}}
               <div class="tool" onClick="undo()">
                 <img src="/images/undo.svg" alt="Undo last point" />
               </div>
+              {{/unless}}
               <div class="tool" onClick="centerPolygon()">
                 <img src="/images/aim.svg" alt="Center polygon on map" />
               </div>
             </div>
 
+            {{#unless polygon.id}}
             <div id="list-points"></div>
+            {{/unless}}
           </div>        
         </div>     
       </form>

@@ -22,12 +22,15 @@ updatePolygon()
 centerPolygon()
 
 map.on('click', (event) => {
-    const lat = event.latlng.lat;
-    const lng = event.latlng.lng;
+    const isEditing = !!document.getElementById("list-points");  
+    if (isEditing){
+      const lat = event.latlng.lat;
+      const lng = event.latlng.lng;
 
-    latlngs.push([lat, lng]);
-    
-    updatePolygon()    
+      latlngs.push([lat, lng]);
+      
+      updatePolygon()    
+    }    
 })
 
 function undo(){
@@ -41,7 +44,6 @@ function undo(){
 
 function centerPolygon(){
   // zoom the map to the polygon
-  console.log(polygon.getBounds())
   polygon.getBounds()._southWest && polygon.getBounds()._northEast && map.fitBounds(polygon.getBounds());
 }
 
@@ -52,18 +54,20 @@ function updatePolygon(){
   polygon = L.polygon(latlngs, {color: '#312e38'}).addTo(map);
 
   const listPointsContainer = document.getElementById("list-points");  
-
-  listPointsContainer.innerHTML = '';
   
-  document.querySelector('[name=latlngs]').value = JSON.stringify(latlngs);
+  if (listPointsContainer) {
+    listPointsContainer.innerHTML = '';
 
-  latlngs.forEach((latlng, index) => {
-    listPointsContainer.insertAdjacentHTML("beforeend", 
-      `<span title="Lat:${latlng[0]} Lng:${latlng[1]}">
-      ${index + 1}
-      <img src="/images/delete.svg" onclick=deletePoint(${index})>
-      </span>`);
-  })  
+    latlngs.forEach((latlng, index) => {
+      listPointsContainer.insertAdjacentHTML("beforeend", 
+        `<span title="Lat:${latlng[0]} Lng:${latlng[1]}">
+        ${index + 1}
+        <img src="/images/delete.svg" onclick=deletePoint(${index})>
+        </span>`);
+    })  
+  }
+  
+  document.querySelector('[name=latlngs]').value = JSON.stringify(latlngs);  
 }
 
 function deletePoint(index){

@@ -1,8 +1,4 @@
-const Database = require("./database/db");
-const savePolygon = require("./database/savePolygon");
-const editPolygon = require("./database/editPolygon");
-const replacePoints = require("./database/replacePoints");
-const insertPoints = require("./database/insertPoints");
+const { api } = require("./services/api");
 
 module.exports = {
   index(req, res) {
@@ -10,14 +6,18 @@ module.exports = {
   },
   async polygons(req, res){
     try{
-      const db = await Database;
-      const polygons = await db.all(
-        `SELECT id, area, name FROM polygons`
-      );
+      const response = await api.get('polygons');
+      const polygons = response.data.map((polygon) => {
+        return {
+          id: polygon.id,
+          area: polygon.area,
+          name: polygon.name,
+        }
+      });
       return res.render("polygons", { polygons });
     } catch (err) {
       console.log(err);
-      return res.send("Erro no banco de dados!");
+      return res.send("Erro ao obter dados!");
     }
   },
   createPolygon(req, res) {
@@ -34,52 +34,38 @@ module.exports = {
     }
 
     try {      
-      const db = await Database;
+      const response = await api.post('/polygons', {
+        name: name,
+        area: area,
+      });
 
-      if (id){
-        await editPolygon(db, {
-          id: id,
-          name: name,
-          area: area,
-        });
-        await replacePoints(db, {
-          id: id,
-          points: latlngs
-        });
-      } else {
-        await savePolygon(db, {
-          name: name,
-          area: area,
-        });
-        await insertPoints(db, {          
-          points: latlngs
-        });
-      }      
+      const polygon_id = response.data.id;
+      
+      latlngs.forEach(async (latlng) => {        
+        await api.post('/points', {
+          polygon_id,
+          lat: latlng[0],
+          lng: latlng[1]
+        })
+      })    
 
       //redirecionamento
       return res.redirect("/polygons");
     } catch (err) {
-      console.log(err);
+      //console.log(err);
       return res.send("Erro no banco de dados!");
     }
   },
   async polygon(req, res){
     id = req.query.id;
     try{
-      const db = await Database;
-      const results = await db.all(
-        `SELECT id, area, name FROM polygons WHERE id = ${id}`
-      );
-      const polygon = results[0];
+      const responsePolygon = await api.get(`/polygons/${id}`)
+      const polygon = responsePolygon.data;
 
-      const pointsResult = await db.all(
-        `SELECT lat, lng FROM points WHERE polygon_id = ${id}`
-      );
-      const points = [];
-      pointsResult.forEach(element => {
-        points.push([element.lat, element.lng])
-      });
-      return res.render('polygon', {polygon, points: JSON.stringify(points)})
+      const responsePoints = await api.get(`/points/${id}`)
+      const points = responsePoints.data;
+      const pointsArray = points.map((point) => ([point.lat, point.lng]))
+      return res.render('polygon', {polygon, points: JSON.stringify(pointsArray)})
     } catch (err) {
       console.log(err);
       return res.send("Erro no banco de dados!");
