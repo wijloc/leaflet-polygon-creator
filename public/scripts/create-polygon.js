@@ -22,8 +22,6 @@ let otherPolygons = [];
 if (document.querySelector('[name=polygons]').value){
   otherPolygons = JSON.parse(document.querySelector('[name=polygons]').value);
 }
-
-console.log(otherPolygons)
 drawOtherPolygons();
 
 
