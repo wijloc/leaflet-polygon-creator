@@ -18,6 +18,15 @@ if (document.querySelector('[name=latlngs]').value){
 }
 let polygon;
 
+let otherPolygons = [];
+if (document.querySelector('[name=polygons]').value){
+  otherPolygons = JSON.parse(document.querySelector('[name=polygons]').value);
+}
+
+console.log(otherPolygons)
+drawOtherPolygons();
+
+
 updatePolygon()
 centerPolygon()
 
@@ -73,4 +82,10 @@ function updatePolygon(){
 function deletePoint(index){
   latlngs.splice(index, 1)
   updatePolygon()
+}
+
+function drawOtherPolygons(){
+  otherPolygons.forEach(polygon => {
+    L.polygon(polygon.points, {color: '#ff0000'}).addTo(map)
+  });  
 }

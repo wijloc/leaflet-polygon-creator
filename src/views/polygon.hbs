@@ -40,6 +40,11 @@
           {{else}}
             <input hidden name="latlngs" />
           {{/if}}
+          {{#if polygons}}
+            <input hidden name="polygons" value="{{polygons}}" />
+          {{else}}
+            <input hidden name="polygons" />
+          {{/if}}
           <div class="input-block">
             <label for="area">Area</label>
             <input id="area" name="area" required value="{{polygon.area}}">
