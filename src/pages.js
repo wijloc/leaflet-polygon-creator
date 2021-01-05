@@ -54,7 +54,8 @@ module.exports = {
         await api.post('/points', {
           polygon_id,
           lat: latlng[0],
-          lng: latlng[1]
+          lng: latlng[1],
+          order: latlng[2]
         })
       })
 
@@ -72,7 +73,7 @@ module.exports = {
 
       const responsePoints = await api.get(`/points/${id}`)
       const points = responsePoints.data;
-      const pointsArray = points.map((point) => ([point.lat, point.lng]))
+      const pointsArray = points.map((point) => ([point.lat, point.lng, point.order]))
 
       const responsePolygons = await api.get('polygons');
       const polygons = responsePolygons.data.map((polygon) => {

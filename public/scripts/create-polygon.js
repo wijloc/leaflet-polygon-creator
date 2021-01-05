@@ -28,13 +28,16 @@ drawOtherPolygons();
 updatePolygon()
 centerPolygon()
 
+let order = 0;
+
 map.on('click', (event) => {
     const isEditing = !!document.getElementById("list-points");  
     if (isEditing){
       const lat = event.latlng.lat;
       const lng = event.latlng.lng;
 
-      latlngs.push([lat, lng]);
+      order++;
+      latlngs.push([lat, lng, order]);
       
       updatePolygon()    
     }    
@@ -58,7 +61,7 @@ function updatePolygon(){
   polygon && map.removeLayer(polygon);
 
   //add icon layer
-  polygon = L.polygon(latlngs, {color: '#312e38'}).addTo(map);
+  polygon = L.polygon(latlngs, {color: '#9B111E'}).addTo(map);
 
   const listPointsContainer = document.getElementById("list-points");  
   
@@ -67,7 +70,7 @@ function updatePolygon(){
 
     latlngs.forEach((latlng, index) => {
       listPointsContainer.insertAdjacentHTML("beforeend", 
-        `<span title="Lat:${latlng[0]} Lng:${latlng[1]}">
+        `<span title="Lat:${latlng[0]} Lng:${latlng[1]} Order:${latlng[2]}">
         ${index + 1}
         <img src="/images/delete.svg" onclick=deletePoint(${index})>
         </span>`);
@@ -84,6 +87,6 @@ function deletePoint(index){
 
 function drawOtherPolygons(){
   otherPolygons.forEach(polygon => {
-    L.polygon(polygon.points, {color: '#ff0000'}).addTo(map)
+    L.polygon(polygon.points, {color: '#312e38'}).addTo(map)
   });  
 }
