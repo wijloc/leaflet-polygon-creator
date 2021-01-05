@@ -33,13 +33,17 @@ module.exports = {
     return res.render("polygon", { polygons: JSON.stringify(polygons) });
   },
   async savePolygon(req, res) {
-    const { id, area, name, latlngs: textLatlngs } = req.body;
+    const { area, name, latlngs: textLatlngs } = req.body;
 
     latlngs = JSON.parse(textLatlngs);
 
     //validar se todos os campos estão preenchidos
     if (Object.values({ area, name }).includes("")) {
       return res.send("Todos os campos devem ser preenchidos!");
+    }
+
+    if (latlngs.length === 0){
+      return res.send("Points of polygon is required.")
     }
 
     try {
@@ -85,6 +89,7 @@ module.exports = {
         }
       });
       const filteredPolygons = polygons.filter((element) => (element.id !== id));
+      
       return res.render('polygon', { polygon, points: JSON.stringify(pointsArray), polygons: JSON.stringify(filteredPolygons) })
     } catch (err) {
       console.log(err);
@@ -95,5 +100,42 @@ module.exports = {
     const { id } = req.query;
     const deleteResponse = await api.delete('/polygons', { data: { id } })
     return res.redirect("/polygons");
+  },
+  async alterPolygon(req, res){
+    const { id, area, name, latlngs: textLatlngs } = req.body;
+
+    latlngs = JSON.parse(textLatlngs);
+
+    //validar se todos os campos estão preenchidos
+    if (Object.values({ area, name }).includes("")) {
+      return res.send("Todos os campos devem ser preenchidos!");
+    }
+
+    if (latlngs.length === 0){
+      return res.send("Points of polygon is required.")
+    }
+
+    try {
+      const response = await api.put(`/polygons/${id}`, {
+        name: name,
+        area: area,        
+      });
+
+      const polygon_id = id;
+
+      latlngs.forEach(async (latlng) => {
+        await api.post('/points', {
+          polygon_id,
+          lat: latlng[0],
+          lng: latlng[1],
+          order: latlng[2]
+        })
+      })
+
+      //redirecionamento
+      return res.redirect("/polygons");
+    } catch (err) {
+      return res.send("Erro no banco de dados!");
+    }
   }
 }
