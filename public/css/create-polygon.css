@@ -40,25 +40,56 @@ aside a {
   border-radius: 4rem;
   padding: 2rem;
   width: 100%;
-  display: flex;
+  display: block;
+  overflow: auto;
 }
 
 #container form {
   flex: 1;
 }
 
-#container form fieldset{
+#container form .map-container .map fieldset{
   display: flex;
   border: 0;
+  padding: 10px;
+  background-color: #312e38;
+  border-radius: 0 0 20px 20px;  
   margin-bottom: 20px;
+  align-items: center;  
 }
 
-#container form fieldset button{
-  margin-left: 20px;
+#container form .map-container .map fieldset button{
+  margin-left: 10px;
+  border: 0;
+  border-radius: 2rem;  
+  height: 31px;
+  padding: 0 10px;
 }
 
-#container form fieldset .input-block + .input-block{
-  margin-left: 20px;
+#container form .map-container .map fieldset .input-block{  
+  display: flex;
+}
+
+#container form .map-container .map fieldset .input-block + .input-block{
+  margin-left: 10px;
+}
+
+#container form .map-container .map fieldset .input-block label{
+  border-radius: 2rem 0 0 2rem;
+  background-color: #312e38;
+  color: #fff;
+  padding: 5px;
+  border: 1px solid #fff;
+  margin-right: 0;
+}
+
+#container form .map-container .map fieldset .input-block input{
+  border-radius: 0 2rem 2rem 0;
+  padding: 5px;
+  border: 0;
+  margin: 0;
+  outline: none;
+  display: block;
 }
 
 .map-container{  
@@ -75,16 +106,15 @@ aside a {
 
 .map-container #mapid{
   width:100%;
-  min-height: 75vh;
+  min-height: 60vh;  
+}
+
+.map-container header{
+  background-color: #312e38;
   border-radius: 20px 20px 0 0;
 }
 
-.map-container footer{
-  background-color: #312e38;
-  border-radius: 0 0 20px 20px;
-}
-
-.map-container footer p {
+.map-container header p {
   color: #fff;
   padding: 10px;
 }

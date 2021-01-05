@@ -29,54 +29,53 @@
   </aside>
   <div id="container">
     <form {{#if polygon.id}} action="alter-polygon" {{else}} action="save-polygon" {{/if}} method="post">
-      <fieldset>
-        {{#if polygon.id}}
-        <input hidden name="id" value="{{polygon.id}}" />
-        {{else}}
-        <input hidden name="id" />
-        {{/if}}
-        {{#if points}}
-        <input hidden name="latlngs" value="{{points}}" />
-        {{else}}
-        <input hidden name="latlngs" />
-        {{/if}}
-        {{#if polygons}}
-        <input hidden name="polygons" value="{{polygons}}" />
-        {{else}}
-        <input hidden name="polygons" />
-        {{/if}}
-        <div class="input-block">
-          <label for="area">Area</label>
-          <input id="area" name="area" required value="{{polygon.area}}">
-        </div>
-        <div class="input-block">
-          <label for="name">Name</label>
-          <input id="name" name="name" required value="{{polygon.name}}" />
-        </div>
-
-
-        <button type="submit" title="Save Polygon">
-          Save
-        </button>
-
-      </fieldset>
-
       <div class="map-container">
         <div class="map">
-          <div id="mapid"></div>
-          <footer>
+          <header>
             <p>
               Click to add point to polygon, points must be added in counterclockwise or clockwise order
             </p>
-          </footer>
+          </header>
+          <div id="mapid"></div>          
+          <fieldset>
+          {{#if polygon.id}}
+          <input hidden name="id" value="{{polygon.id}}" />
+          {{else}}
+          <input hidden name="id" />
+          {{/if}}
+          {{#if points}}
+          <input hidden name="latlngs" value="{{points}}" />
+          {{else}}
+          <input hidden name="latlngs" />
+          {{/if}}
+          {{#if polygons}}
+          <input hidden name="polygons" value="{{polygons}}" />
+          {{else}}
+          <input hidden name="polygons" />
+          {{/if}}
+          <div class="input-block">
+            <label for="area">Area</label>
+            <input id="area" name="area" required value="{{polygon.area}}">
+          </div>
+          <div class="input-block">
+            <label for="name">Name</label>
+            <input id="name" name="name" required value="{{polygon.name}}" />
+          </div>
+
+
+          <button type="submit" title="Save Polygon">
+            Save
+          </button>
+
+          </fieldset>
         </div>
         <div id="rightpanel">
           <div class="toolbar">
             <div class="tool" onClick="undo()">
-              <img src="/images/undo.svg" alt="Undo last point" />
+              <img src="/images/undo.svg" alt="Undo last point" title="Undo last point" />
             </div>
             <div class="tool" onClick="centerPolygon()">
-              <img src="/images/aim.svg" alt="Center polygon on map" />
+              <img src="/images/aim.svg" alt="Center polygon on map" title="Center polygon on map" />
             </div>
           </div>
 
