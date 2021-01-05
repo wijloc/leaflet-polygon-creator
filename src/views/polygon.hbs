@@ -21,81 +21,73 @@
 </head>
 
 <body id="body">
-  <aside>        
+  <aside>
     <div></div>
     <a href="polygons">
-      <div>
-        <img src="/images/arrow-back.svg" alt="Back" />
-      </div>
+      <img src="/images/arrow-back.svg" alt="Back" />
     </a>
   </aside>
   <div id="container">
-      <form action="save-polygon" method="post">
-        <fieldset>
-          {{#if polygon.id}}
-            <input hidden name="id" value="{{polygon.id}}" />
-          {{else}}
-            <input hidden name="id" />
-          {{/if}}
-          {{#if points}}
-            <input hidden name="latlngs" value="{{points}}" />
-          {{else}}
-            <input hidden name="latlngs" />
-          {{/if}}
-          {{#if polygons}}
-            <input hidden name="polygons" value="{{polygons}}" />
-          {{else}}
-            <input hidden name="polygons" />
-          {{/if}}
-          <div class="input-block">
-            <label for="area">Area</label>
-            <input id="area" name="area" required value="{{polygon.area}}">
-          </div>
-          <div class="input-block">
-            <label for="name">Name</label>
-            <input id="name" name="name" required value="{{polygon.name}}"/>
-          </div>          
-        
+    <form {{#if polygon.id}} action="alter-polygon" {{else}} action="save-polygon" {{/if}} method="post">
+      <fieldset>
+        {{#if polygon.id}}
+        <input hidden name="id" value="{{polygon.id}}" />
+        {{else}}
+        <input hidden name="id" />
+        {{/if}}
+        {{#if points}}
+        <input hidden name="latlngs" value="{{points}}" />
+        {{else}}
+        <input hidden name="latlngs" />
+        {{/if}}
+        {{#if polygons}}
+        <input hidden name="polygons" value="{{polygons}}" />
+        {{else}}
+        <input hidden name="polygons" />
+        {{/if}}
+        <div class="input-block">
+          <label for="area">Area</label>
+          <input id="area" name="area" required value="{{polygon.area}}">
+        </div>
+        <div class="input-block">
+          <label for="name">Name</label>
+          <input id="name" name="name" required value="{{polygon.name}}" />
+        </div>
 
-        {{#unless polygon.id}}
+
         <button type="submit" title="Save Polygon">
           Save
         </button>
-        {{/unless}}
-        
-        </fieldset>
-      
-        <div class="map-container">
-          <div class="map">
-            <div id="mapid"></div>
-            <footer>
-              <p>
-                Click to add point to polygon, points must be added in counterclockwise or clockwise order
-              </p>
-            </footer>
-          </div>
-          <div id="rightpanel">
-            <div class="toolbar">
-              {{#unless polygon.id}}
-              <div class="tool" onClick="undo()">
-                <img src="/images/undo.svg" alt="Undo last point" />
-              </div>
-              {{/unless}}
-              <div class="tool" onClick="centerPolygon()">
-                <img src="/images/aim.svg" alt="Center polygon on map" />
-              </div>
-            </div>
 
-            {{#unless polygon.id}}
-            <div id="list-points"></div>
-            {{/unless}}
-          </div>        
-        </div>     
-      </form>
+      </fieldset>
+
+      <div class="map-container">
+        <div class="map">
+          <div id="mapid"></div>
+          <footer>
+            <p>
+              Click to add point to polygon, points must be added in counterclockwise or clockwise order
+            </p>
+          </footer>
+        </div>
+        <div id="rightpanel">
+          <div class="toolbar">
+            <div class="tool" onClick="undo()">
+              <img src="/images/undo.svg" alt="Undo last point" />
+            </div>
+            <div class="tool" onClick="centerPolygon()">
+              <img src="/images/aim.svg" alt="Center polygon on map" />
+            </div>
+          </div>
+
+          <div id="list-points"></div>
+        </div>
+      </div>
+    </form>
   </div>
   <div class="github-container">
     <a href="http://github.com/wijloc/leaflet-polygon-creator" target="_blank">Available on GitHub</a>
-  </div>  
+  </div>
 
   <script src="/scripts/create-polygon.js"></script>
 </body>

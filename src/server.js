@@ -17,12 +17,13 @@ server
   .set("view engine", "hbs")
 
 //criar rotas da aplicacao
-.get("/", pages.index)
+.get('/', pages.index)
 .get('/polygons', pages.polygons)
 .get('/create-polygon', pages.createPolygon)
 .get('/polygon', pages.polygon)
-.post("/save-polygon", pages.savePolygon)
+.post('/save-polygon', pages.savePolygon)
 .get('/delete-polygon', pages.deletePolygon)
+.post('/alter-polygon', pages.alterPolygon)
 
 //ligar o servidor
 server.listen(process.env.PORT || 5500, () => {  
