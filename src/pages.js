@@ -20,8 +20,17 @@ module.exports = {
       return res.send("Erro ao obter dados!");
     }
   },
-  createPolygon(req, res) {
-    return res.render("polygon");
+  async createPolygon(req, res) {
+    const responsePolygons = await api.get('polygons');
+    const polygons = responsePolygons.data.map((polygon) => {
+      return {
+        id: polygon.id,
+        area: polygon.area,
+        name: polygon.name,
+        points: polygon.points
+      }
+    });
+    return res.render("polygon", { polygons: JSON.stringify(polygons) });
   },
   async savePolygon(req, res) {
     const { id, area, name, latlngs: textLatlngs } = req.body;
@@ -74,7 +83,7 @@ module.exports = {
           points: polygon.points
         }
       });
-      const filteredPolygons = polygons.filter((element)=>(element.id!==id));
+      const filteredPolygons = polygons.filter((element) => (element.id !== id));
       return res.render('polygon', { polygon, points: JSON.stringify(pointsArray), polygons: JSON.stringify(filteredPolygons) })
     } catch (err) {
       console.log(err);
@@ -83,7 +92,7 @@ module.exports = {
   },
   async deletePolygon(req, res) {
     const { id } = req.query;
-    const deleteResponse = await api.delete('/polygons', { data: { id } })    
+    const deleteResponse = await api.delete('/polygons', { data: { id } })
     return res.redirect("/polygons");
   }
 }
