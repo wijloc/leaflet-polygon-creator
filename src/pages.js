@@ -79,6 +79,10 @@ module.exports = {
       console.log(err);
       return res.send("Erro no banco de dados!");
     }
-
+  },
+  async deletePolygon(req, res) {
+    const { id } = req.query;
+    const deleteResponse = await api.delete('/polygons', { data: { id } })    
+    return res.redirect("/polygons");
   }
 }

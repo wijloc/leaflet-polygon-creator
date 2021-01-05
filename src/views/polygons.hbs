@@ -27,22 +27,29 @@
     </header>
     <main>
       <ul>
-      {{#each polygons}}
-        <li><a href="polygon?id={{this.id}}">{{this.area}} - {{this.name}}</a></li>
-      {{/each}}
+        {{#each polygons}}
+        <li>
+          <a href="polygon?id={{this.id}}">
+            {{this.area}} - {{this.name}}
+          </a>
+          <a href="delete-polygon?id={{this.id}}">
+            <img src="/images/trash.svg" alt="Delete Polygon" />
+          </a>
+        </li>
+        {{/each}}
       </ul>
     </main>
     <footer>
-      <h1>2020</h1>      
+      <h1>2020</h1>
     </footer>
-    
+
     <a id="addNewPolygon" href="/create-polygon" title="Create Polygon">
       <img src="/images/plus.svg" alt="Go to Create Polygon" />
     </a>
   </div>
   <div class="github-container">
     <a href="http://github.com/wijloc/leaflet-polygon-creator" target="_blank">Available on GitHub</a>
-  </div>  
+  </div>
 </body>
 
 </html>
