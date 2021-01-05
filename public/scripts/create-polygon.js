@@ -13,13 +13,13 @@ const icon = L.icon({
 });
 
 let latlngs = [];
-if (document.querySelector('[name=latlngs]').value){
+if (document.querySelector('[name=latlngs]').value) {
   latlngs = JSON.parse(document.querySelector('[name=latlngs]').value);
 }
 let polygon;
 
 let otherPolygons = [];
-if (document.querySelector('[name=polygons]').value){
+if (document.querySelector('[name=polygons]').value) {
   otherPolygons = JSON.parse(document.querySelector('[name=polygons]').value);
 }
 drawOtherPolygons();
@@ -31,20 +31,17 @@ centerPolygon()
 let order = 0;
 
 map.on('click', (event) => {
-    const isEditing = !!document.getElementById("list-points");  
-    if (isEditing){
-      const lat = event.latlng.lat;
-      const lng = event.latlng.lng;
+  const lat = event.latlng.lat;
+  const lng = event.latlng.lng;
 
-      order++;
-      latlngs.push([lat, lng, order]);
-      
-      updatePolygon()    
-    }    
+  order++;
+  latlngs.push([lat, lng, order]);
+
+  updatePolygon()
 })
 
-function undo(){
-  if (latlngs.length == 0){
+function undo() {
+  if (latlngs.length == 0) {
     return;
   }
 
@@ -52,41 +49,41 @@ function undo(){
   updatePolygon()
 }
 
-function centerPolygon(){
+function centerPolygon() {
   // zoom the map to the polygon
   polygon.getBounds()._southWest && polygon.getBounds()._northEast && map.fitBounds(polygon.getBounds());
 }
 
-function updatePolygon(){
+function updatePolygon() {
   polygon && map.removeLayer(polygon);
 
   //add icon layer
-  polygon = L.polygon(latlngs, {color: '#9B111E'}).addTo(map);
+  polygon = L.polygon(latlngs, { color: '#9B111E' }).addTo(map);
 
-  const listPointsContainer = document.getElementById("list-points");  
-  
+  const listPointsContainer = document.getElementById("list-points");
+
   if (listPointsContainer) {
     listPointsContainer.innerHTML = '';
 
     latlngs.forEach((latlng, index) => {
-      listPointsContainer.insertAdjacentHTML("beforeend", 
+      listPointsContainer.insertAdjacentHTML("beforeend",
         `<span title="Lat:${latlng[0]} Lng:${latlng[1]} Order:${latlng[2]}">
         ${index + 1}
         <img src="/images/delete.svg" onclick=deletePoint(${index})>
         </span>`);
-    })  
+    })
   }
-  
-  document.querySelector('[name=latlngs]').value = JSON.stringify(latlngs);  
+
+  document.querySelector('[name=latlngs]').value = JSON.stringify(latlngs);
 }
 
-function deletePoint(index){
+function deletePoint(index) {
   latlngs.splice(index, 1)
   updatePolygon()
 }
 
-function drawOtherPolygons(){
+function drawOtherPolygons() {
   otherPolygons.forEach(polygon => {
-    L.polygon(polygon.points, {color: '#312e38'}).addTo(map)
-  });  
+    L.polygon(polygon.points, { color: '#312e38' }).addTo(map)
+  });
 }
