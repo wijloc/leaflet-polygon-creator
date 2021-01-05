@@ -74,7 +74,8 @@ module.exports = {
           points: polygon.points
         }
       });
-      return res.render('polygon', { polygon, points: JSON.stringify(pointsArray), polygons: JSON.stringify(polygons) })
+      const filteredPolygons = polygons.filter((element)=>(element.id!==id));
+      return res.render('polygon', { polygon, points: JSON.stringify(pointsArray), polygons: JSON.stringify(filteredPolygons) })
     } catch (err) {
       console.log(err);
       return res.send("Erro no banco de dados!");
