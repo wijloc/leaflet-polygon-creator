@@ -29,6 +29,9 @@ updatePolygon()
 centerPolygon()
 
 let order = 0;
+if (latlngs.length > 0){
+  order = latlngs[latlngs.length - 1][2];
+}
 
 map.on('click', (event) => {
   const lat = event.latlng.lat;
