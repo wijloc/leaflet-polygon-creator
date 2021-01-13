@@ -8,7 +8,7 @@ const server = express();
 
 server
   //utilizar body do req
-  .use(express.urlencoded({extended: true}))
+  .use(express.urlencoded({limit: '200mb',extended: true}))
   //utilizando os arquivos estásticos
   .use(express.static("public"))
 
