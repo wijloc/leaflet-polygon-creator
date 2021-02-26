@@ -24,6 +24,7 @@ server
 .post('/save-polygon', pages.savePolygon)
 .get('/delete-polygon', pages.deletePolygon)
 .post('/alter-polygon', pages.alterPolygon)
+.get('/manage-customers', pages.manageCustomers)
 
 //ligar o servidor
 server.listen(process.env.PORT || 5500, () => {  

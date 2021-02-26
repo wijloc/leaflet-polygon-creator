@@ -92,6 +92,10 @@ aside a {
   display: block;
 }
 
+#container form .map-container .map fieldset .input-block input:disabled{
+  color: #fff;
+}
+
 .map-container{  
   display: flex;  
 }

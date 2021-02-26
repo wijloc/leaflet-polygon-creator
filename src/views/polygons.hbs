@@ -32,7 +32,10 @@
           <a href="polygon?id={{this.id}}">
             {{this.area}} - {{this.name}}
           </a>
-          <div id="actions">
+          <div id="actions">                        
+            <a href="manage-customers?id={{this.id}}">
+              <img src="/images/users.svg" alt="Manage Customers" />
+            </a>
             <div class="deleteIcon_{{this.id}}" style="cursor: pointer" onClick="deletePolygon('{{this.id}}')">
               <img src="/images/trash.svg" alt="Delete Polygon" />
             </div>

@@ -137,5 +137,32 @@ module.exports = {
     } catch (err) {
       return res.send("Erro no banco de dados!");
     }
-  }
+  },
+  async manageCustomers(req, res) {
+    id = req.query.id;
+    try {
+      const responsePolygon = await api.get(`/polygons/${id}`)
+      const polygon = responsePolygon.data;
+
+      const responsePoints = await api.get(`/points/${id}`)
+      const points = responsePoints.data;
+      const pointsArray = points.map((point) => ([point.lat, point.lng, point.order]))
+
+      const responsePolygons = await api.get('polygons');
+      const polygons = responsePolygons.data.map((polygon) => {
+        return {
+          id: polygon.id,
+          area: polygon.area,
+          name: polygon.name,
+          points: polygon.points
+        }
+      });
+      const filteredPolygons = polygons.filter((element) => (element.id !== id));
+      
+      return res.render('polygon-customers', { polygon, points: JSON.stringify(pointsArray), polygons: JSON.stringify(filteredPolygons) })
+    } catch (err) {
+      console.log(err);
+      return res.send("Erro no banco de dados!");
+    }
+  },
 }

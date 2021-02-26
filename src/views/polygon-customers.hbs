@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- adaptação para telas menores-->
+  <title>Willian Oliveira - Map</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
+  <!-- Make sure you put this AFTER Leaflet's CSS -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+  <link rel="icon" href="/images/logo-icon.png" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/create-polygon.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;800&display=swap" rel="stylesheet" />
+</head>
+
+<body id="body">
+  <aside>
+    <div></div>
+    <a href="polygons">
+      <img src="/images/arrow-back.svg" alt="Back" />
+    </a>
+  </aside>
+  <div id="container">
+    <form method="post">
+      <div class="map-container">
+        <div class="map">
+          <header>
+            <p>
+              Click to add point to polygon, points must be added in counterclockwise or clockwise order
+            </p>
+          </header>
+          <div id="mapid"></div>
+          <fieldset>
+            {{#if polygon.id}}
+            <input hidden name="id" value="{{polygon.id}}" />
+            {{else}}
+            <input hidden name="id" />
+            {{/if}}
+            {{#if points}}
+            <input hidden name="latlngs" value="{{points}}" />
+            {{else}}
+            <input hidden name="latlngs" />
+            {{/if}}
+            {{#if polygons}}
+            <input hidden name="polygons" value="{{polygons}}" />
+            {{else}}
+            <input hidden name="polygons" />
+            {{/if}}
+            <div class="input-block">
+              <label for="quantityCustomers">Number of customers</label>
+              <input name="quantityCustomers" disabled />
+            </div>
+            <button type="button" title="Save Polygon" onclick="saveCustomers()" style="margin-right: 30px;">
+              Save
+            </button>
+
+
+            <div class="input-block">
+              <label for="quantityRandomPoints">Number of random customers</label>
+              <input name="quantityRandomPoints" value="0"/>
+            </div>
+            <button type="button" title="Generate Random Points" onclick="createRandomPoints()">
+              Generate Random Points
+            </button>
+
+          </fieldset>
+        </div>
+        <div id="rightpanel">
+          <div class="toolbar">
+            <div class="tool" onClick="centerPolygon()">
+              <img src="/images/aim.svg" alt="Center polygon on map" title="Center polygon on map" />
+            </div>            
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="github-container">
+    <a href="http://github.com/wijloc/leaflet-polygon-creator" target="_blank">Available on GitHub</a>
+  </div>
+
+  <script src="/scripts/polygon-customers.js"></script>
+  <script src="https://cdn.rawgit.com/hayeswise/Leaflet.PointInPolygon/v1.0.0/wise-leaflet-pip.js"></script>
+
+</body>
+
+</html>
