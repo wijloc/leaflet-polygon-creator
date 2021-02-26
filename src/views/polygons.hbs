@@ -32,9 +32,17 @@
           <a href="polygon?id={{this.id}}">
             {{this.area}} - {{this.name}}
           </a>
-          <a href="delete-polygon?id={{this.id}}">
-            <img src="/images/trash.svg" alt="Delete Polygon" />
-          </a>
+          <div id="actions">
+            <div class="deleteIcon_{{this.id}}" style="cursor: pointer" onClick="deletePolygon('{{this.id}}')">
+              <img src="/images/trash.svg" alt="Delete Polygon" />
+            </div>
+            <div class="choice-buttons deleteConfirm_{{this.id}}" onClick="deleteConfirm('{{this.id}}')">
+              <img src="/images/confirm.svg" alt="Confirm Delete Polygon" />
+            </div>
+            <div class="choice-buttons deleteCancel_{{this.id}}" onClick="deleteCancel('{{this.id}}')">
+              <img src="/images/cancel.svg" alt="Cancel Delete Polygon" />
+            </div>
+          </div>
         </li>
         {{/each}}
       </ul>
@@ -50,6 +58,8 @@
   <div class="github-container">
     <a href="http://github.com/wijloc/leaflet-polygon-creator" target="_blank">Available on GitHub</a>
   </div>
+
+  <script src="/scripts/delete-polygon-confirm.js"></script>
 </body>
 
 </html>

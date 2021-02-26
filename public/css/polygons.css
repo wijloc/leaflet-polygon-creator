@@ -93,3 +93,22 @@ li{
 ul li a {
   color: #fff;
 }
+
+#actions{
+  display: flex;  
+}
+
+#actions div{
+  margin-left: 2px;
+}
+
+#actions .choice-buttons{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 0.6rem;
+  background-color: #fff;
+  padding: 0 4px;
+  display: none;
+  border: solid 1px #312E38;
+}
