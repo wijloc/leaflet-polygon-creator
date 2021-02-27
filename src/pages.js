@@ -42,7 +42,7 @@ module.exports = {
       return res.send("Todos os campos devem ser preenchidos!");
     }
 
-    if (latlngs.length === 0){
+    if (latlngs.length === 0) {
       return res.send("Points of polygon is required.")
     }
 
@@ -89,7 +89,7 @@ module.exports = {
         }
       });
       const filteredPolygons = polygons.filter((element) => (element.id !== id));
-      
+
       return res.render('polygon', { polygon, points: JSON.stringify(pointsArray), polygons: JSON.stringify(filteredPolygons) })
     } catch (err) {
       console.log(err);
@@ -101,7 +101,7 @@ module.exports = {
     const deleteResponse = await api.delete('/polygons', { data: { id } })
     return res.redirect("/polygons");
   },
-  async alterPolygon(req, res){
+  async alterPolygon(req, res) {
     const { id, area, name, latlngs: textLatlngs } = req.body;
 
     latlngs = JSON.parse(textLatlngs);
@@ -111,14 +111,14 @@ module.exports = {
       return res.send("Todos os campos devem ser preenchidos!");
     }
 
-    if (latlngs.length === 0){
+    if (latlngs.length === 0) {
       return res.send("Points of polygon is required.")
     }
 
     try {
       const response = await api.put(`/polygons/${id}`, {
         name: name,
-        area: area,        
+        area: area,
       });
 
       const polygon_id = id;
@@ -148,6 +148,10 @@ module.exports = {
       const points = responsePoints.data;
       const pointsArray = points.map((point) => ([point.lat, point.lng, point.order]))
 
+      const responseCustomers = await api.get(`/customers/${id}`)
+      const customers = responseCustomers.data;
+      const customersArray = customers.map((customer) => ([customer.lat, customer.lng]))
+
       const responsePolygons = await api.get('polygons');
       const polygons = responsePolygons.data.map((polygon) => {
         return {
@@ -158,8 +162,8 @@ module.exports = {
         }
       });
       const filteredPolygons = polygons.filter((element) => (element.id !== id));
-      
-      return res.render('polygon-customers', { polygon, points: JSON.stringify(pointsArray), polygons: JSON.stringify(filteredPolygons) })
+
+      return res.render('polygon-customers', { polygon, points: JSON.stringify(pointsArray), polygons: JSON.stringify(filteredPolygons), customers: JSON.stringify(customersArray) })
     } catch (err) {
       console.log(err);
       return res.send("Erro no banco de dados!");
@@ -176,12 +180,11 @@ module.exports = {
     }
 
     try {
-      customers.forEach(async (latlng) => {
-        await api.post('/customers', {
-          polygon_id,
-          lat: customers[0],
-          lng: customers[1]
-        })
+      const customers_array = customers.map((customer) => ({ lat: customer.lat, lng: customer.lng }));
+
+      await api.post('/customers', {
+        polygon_id,
+        customers: customers_array
       })
 
       //redirecionamento

@@ -45,9 +45,11 @@
             {{else}}
             <input hidden name="polygons" />
             {{/if}}
-
-            <input name="customers_data" />
-
+            {{#if customers}}
+            <input hidden name="customers_data" value="{{customers}}" />
+            {{else}}
+            <input hidden name="customers_data" />
+            {{/if}}
 
             <div class="input-block">
               <label for="quantityRandomPoints">Number of random customers</label>
