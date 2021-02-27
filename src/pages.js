@@ -165,4 +165,29 @@ module.exports = {
       return res.send("Erro no banco de dados!");
     }
   },
+  async savePolygonCustomers(req, res) {
+    const { polygon_id, customers_data } = req.body;
+
+    customers = JSON.parse(customers_data);
+
+    //validar se todos os campos estão preenchidos
+    if (customers.length === 0) {
+      return res.send("Please inform customers!");
+    }
+
+    try {
+      customers.forEach(async (latlng) => {
+        await api.post('/customers', {
+          polygon_id,
+          lat: customers[0],
+          lng: customers[1]
+        })
+      })
+
+      //redirecionamento
+      return res.redirect("/polygons");
+    } catch (err) {
+      return res.send("Erro no banco de dados!");
+    }
+  }
 }

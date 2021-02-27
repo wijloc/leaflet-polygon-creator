@@ -53,12 +53,17 @@ function drawOtherPolygons() {
 
 let customers = [];
 
-function addCustomer(lat, lng){
+function latLngFrom(customers) {
+  return customers.map((customer) => ({ lat: customer._latlng.lat, lng: customer._latlng.lng }));
+}
+
+function addCustomer(lat, lng) {
   const customer = L.marker([lat, lng], { icon });
   if (polygon.contains(customer.getLatLng())) {
     customers.push(customer);
-    customer.addTo(map);    
+    customer.addTo(map);
     document.querySelector('[name=quantityCustomers]').value = customers.length;
+    document.querySelector('[name=customers_data]').value = JSON.stringify(latLngFrom(customers));
     return 1;
   }
   return 0;
@@ -75,7 +80,7 @@ function createRandomPoints() {
   var y_max = bounds.getSouth();
   var y_min = bounds.getNorth();
 
-  while (created < quantity) {   
+  while (created < quantity) {
 
     const lat = y_min + (Math.random() * (y_max - y_min));
 
@@ -87,12 +92,8 @@ function createRandomPoints() {
   document.querySelector('[name=quantityRandomPoints]').value = 0;
 }
 
-map.on('click', (event) => {  
+map.on('click', (event) => {
   const lat = event.latlng.lat;
   const lng = event.latlng.lng;
   addCustomer(lat, lng);
 })
-
-function saveCustomers(){
-  console.log('salvo')
-}

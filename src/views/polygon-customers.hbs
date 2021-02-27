@@ -28,7 +28,7 @@
     </a>
   </aside>
   <div id="container">
-    <form method="post">
+    <form method="post" action="save-polygon-customers">
       <div class="map-container">
         <div class="map">
           <header>
@@ -37,39 +37,33 @@
             </p>
           </header>
           <div id="mapid"></div>
-          <fieldset>
-            {{#if polygon.id}}
-            <input hidden name="id" value="{{polygon.id}}" />
-            {{else}}
-            <input hidden name="id" />
-            {{/if}}
-            {{#if points}}
-            <input hidden name="latlngs" value="{{points}}" />
-            {{else}}
-            <input hidden name="latlngs" />
-            {{/if}}
+          <fieldset>            
+            <input hidden name="polygon_id" value="{{polygon.id}}" />                        
+            <input hidden name="latlngs" value="{{points}}" />                        
             {{#if polygons}}
             <input hidden name="polygons" value="{{polygons}}" />
             {{else}}
             <input hidden name="polygons" />
             {{/if}}
-            <div class="input-block">
-              <label for="quantityCustomers">Number of customers</label>
-              <input name="quantityCustomers" disabled />
-            </div>
-            <button type="button" title="Save Polygon" onclick="saveCustomers()" style="margin-right: 30px;">
-              Save
-            </button>
+
+            <input name="customers_data" />
 
 
             <div class="input-block">
               <label for="quantityRandomPoints">Number of random customers</label>
               <input name="quantityRandomPoints" value="0"/>
             </div>
-            <button type="button" title="Generate Random Points" onclick="createRandomPoints()">
+            <button type="button" title="Generate Random Points" onclick="createRandomPoints()" style="margin-right: 30px;">
               Generate Random Points
             </button>
 
+            <div class="input-block">
+              <label for="quantityCustomers">Number of customers</label>
+              <input name="quantityCustomers"  value="0" disabled />
+            </div>
+            <button type="submit" title="Save Customers">
+              Save
+            </button>
           </fieldset>
         </div>
         <div id="rightpanel">
