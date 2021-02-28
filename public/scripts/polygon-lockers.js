@@ -78,22 +78,22 @@ const lockers_data = JSON.parse(document.querySelector('[name=lockers_data]').va
 document.querySelector('[name=quantityLockers]').value = lockers_data.length;
 
 lockers_data.forEach((locker)=>{
-  const lockerMarker = L.marker([locker[0], locker[1]], { iconLocker });
+  const lockerMarker = L.marker([locker[0], locker[1]], { icon: iconLocker });
   lockers.push(lockerMarker);
   lockerMarker.addTo(map);
 });
 
-function latLngFrom(customers) {
-  return customers.map((customer) => ({ lat: customer._latlng.lat, lng: customer._latlng.lng }));
+function latLngFrom(lockers) {
+  return lockers.map((locker) => ({ lat: locker._latlng.lat, lng: locker._latlng.lng }));
 }
 
-function addCustomer(lat, lng) {
-  const customer = L.marker([lat, lng], { icon });
-  if (polygon.contains(customer.getLatLng())) {
-    customers.push(customer);
-    customer.addTo(map);
-    document.querySelector('[name=quantityCustomers]').value = customers.length;
-    document.querySelector('[name=customers_data]').value = JSON.stringify(latLngFrom(customers));
+function addLocker(lat, lng) {
+  const locker = L.marker([lat, lng], { icon: iconLocker });
+  if (polygon.contains(locker.getLatLng())) {
+    lockers.push(locker);
+    locker.addTo(map);
+    document.querySelector('[name=quantityLockers]').value = lockers.length;
+    document.querySelector('[name=lockers_data]').value = JSON.stringify(latLngFrom(lockers));
     return 1;
   }
   return 0;
@@ -116,7 +116,7 @@ function createRandomPoints() {
 
     const lng = x_min + (Math.random() * (x_max - x_min));
 
-    created += addCustomer(lat, lng);
+    created += addLocker(lat, lng);
   }
 
   document.querySelector('[name=quantityRandomPoints]').value = 0;
@@ -125,5 +125,5 @@ function createRandomPoints() {
 map.on('click', (event) => {
   const lat = event.latlng.lat;
   const lng = event.latlng.lng;
-  addCustomer(lat, lng);
+  addLocker(lat, lng);
 })

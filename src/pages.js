@@ -152,6 +152,10 @@ module.exports = {
       const customers = responseCustomers.data;
       const customersArray = customers.map((customer) => ([customer.lat, customer.lng]))
 
+      const responseLockers = await api.get(`/lockers/${id}`)
+      const lockers = responseLockers.data;
+      const lockersArray = lockers.map((locker) => ([locker.lat, locker.lng]))
+
       const responsePolygons = await api.get('polygons');
       const polygons = responsePolygons.data.map((polygon) => {
         return {
@@ -163,7 +167,13 @@ module.exports = {
       });
       const filteredPolygons = polygons.filter((element) => (element.id !== id));
 
-      return res.render('polygon-customers', { polygon, points: JSON.stringify(pointsArray), polygons: JSON.stringify(filteredPolygons), customers: JSON.stringify(customersArray) })
+      return res.render('polygon-customers', {
+        polygon,
+        points: JSON.stringify(pointsArray),
+        polygons: JSON.stringify(filteredPolygons),
+        customers: JSON.stringify(customersArray),
+        lockers: JSON.stringify(lockersArray)
+      })
     } catch (err) {
       console.log(err);
       return res.send("Erro no banco de dados!");
@@ -185,6 +195,73 @@ module.exports = {
       await api.post('/customers', {
         polygon_id,
         customers: customers_array
+      })
+
+      //redirecionamento
+      return res.redirect("/polygons");
+    } catch (err) {
+      return res.send("Erro no banco de dados!");
+    }
+  },
+  async manageLockers(req, res) {
+    id = req.query.id;
+    try {
+      const responsePolygon = await api.get(`/polygons/${id}`)
+      const polygon = responsePolygon.data;
+
+      const responsePoints = await api.get(`/points/${id}`)
+      const points = responsePoints.data;
+      const pointsArray = points.map((point) => ([point.lat, point.lng, point.order]))
+
+      const responseCustomers = await api.get(`/customers/${id}`)
+      const customers = responseCustomers.data;
+      const customersArray = customers.map((customer) => ([customer.lat, customer.lng]))
+
+      const responseLockers = await api.get(`/lockers/${id}`)
+      const lockers = responseLockers.data;
+      const lockersArray = lockers.map((locker) => ([locker.lat, locker.lng]))
+
+
+      const responsePolygons = await api.get('polygons');
+      const polygons = responsePolygons.data.map((polygon) => {
+        return {
+          id: polygon.id,
+          area: polygon.area,
+          name: polygon.name,
+          points: polygon.points
+        }
+      });
+      const filteredPolygons = polygons.filter((element) => (element.id !== id));
+
+      return res.render('polygon-customers', {
+        polygon,
+        points: JSON.stringify(pointsArray),
+        polygons: JSON.stringify(filteredPolygons),
+        customers: JSON.stringify(customersArray),
+        lockers: JSON.stringify(lockersArray),
+        source_lockers: true
+      })
+    } catch (err) {
+      console.log(err);
+      return res.send("Erro no banco de dados!");
+    }
+  },
+  async savePolygonLockers(req, res) {
+    const { polygon_id, lockers_data } = req.body;
+
+    lockers = JSON.parse(lockers_data);
+
+    //validar se todos os campos estão preenchidos
+    if (lockers.length === 0) {
+      return res.send("Please inform lockers!");
+    }
+
+    try {
+      const lockers_array = lockers.map((locker) => ({ lat: locker.lat, lng: locker.lng }));
+
+      await api.post('/lockers', {
+        polygon_id,
+        lockers: lockers_array
       })
 
       //redirecionamento

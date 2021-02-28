@@ -28,7 +28,7 @@
     </a>
   </aside>
   <div id="container">
-    <form method="post" action="save-polygon-customers">
+    <form method="post" {{#if source_lockers}} action="save-polygon-lockers" {{else}} action="save-polygon-customers" {{/if}}>
       <div class="map-container">
         <div class="map">
           <header>
@@ -50,9 +50,18 @@
             {{else}}
             <input hidden name="customers_data" />
             {{/if}}
+            {{#if lockers}}
+            <input hidden name="lockers_data" value="{{lockers}}" />
+            {{else}}
+            <input hidden name="lockers_data" value="[]"/>
+            {{/if}}
 
             <div class="input-block">
+              {{#if source_lockers}}
+              <label for="quantityRandomPoints">Number of random lockers</label>
+              {{else}}
               <label for="quantityRandomPoints">Number of random customers</label>
+              {{/if}}
               <input name="quantityRandomPoints" value="0"/>
             </div>
             <button type="button" title="Generate Random Points" onclick="createRandomPoints()" style="margin-right: 30px;">
@@ -62,6 +71,10 @@
             <div class="input-block">
               <label for="quantityCustomers">Number of customers</label>
               <input name="quantityCustomers"  value="0" disabled />
+            </div>
+            <div class="input-block">
+              <label for="quantityLockers">Number of lockers</label>
+              <input name="quantityLockers"  value="0" disabled />
             </div>
             <button type="submit" title="Save Customers">
               Save
@@ -81,8 +94,11 @@
   <div class="github-container">
     <a href="http://github.com/wijloc/leaflet-polygon-creator" target="_blank">Available on GitHub</a>
   </div>
-
+  {{#if source_lockers}}
+  <script src="/scripts/polygon-lockers.js"></script>
+  {{else}}
   <script src="/scripts/polygon-customers.js"></script>
+  {{/if}}
   <script src="https://cdn.rawgit.com/hayeswise/Leaflet.PointInPolygon/v1.0.0/wise-leaflet-pip.js"></script>
 
 </body>
