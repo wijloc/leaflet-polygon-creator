@@ -78,7 +78,7 @@ const lockers_data = JSON.parse(document.querySelector('[name=lockers_data]').va
 document.querySelector('[name=quantityLockers]').value = lockers_data.length;
 
 lockers_data.forEach((locker)=>{
-  const lockerMarker = L.marker([locker[0], locker[1]], { iconLocker });
+  const lockerMarker = L.marker([locker[0], locker[1]], { icon: iconLocker });
   lockers.push(lockerMarker);
   lockerMarker.addTo(map);
 });
