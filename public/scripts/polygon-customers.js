@@ -127,3 +127,13 @@ map.on('click', (event) => {
   const lng = event.latlng.lng;
   addCustomer(lat, lng);
 })
+
+function getDistances(){
+  let vertices = [...lockers, ...customers]
+  vertices.forEach((verticeA) => {
+    vertices.forEach((verticeB) => {
+      distance = verticeA.getLatLng().distanceTo(verticeB.getLatLng());
+      console.log(distance);
+    })
+  })  
+}
