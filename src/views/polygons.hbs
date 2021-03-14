@@ -32,7 +32,7 @@
           <a href="polygon?id={{this.id}}">
             {{this.area}} - {{this.name}}
           </a>
-          <div id="actions">                        
+          <div id="actions">
             <a href="manage-customers?id={{this.id}}">
               <img src="/images/users.svg" alt="Manage Customers" />
             </a>
@@ -56,10 +56,14 @@
     <footer>
       <h1>2020</h1>
     </footer>
-
-    <a id="addNewPolygon" href="/create-polygon" title="Create Polygon">
-      <img src="/images/plus.svg" alt="Go to Create Polygon" />
-    </a>
+    <div id="tools">
+      <a class="action" id="addNewPolygon" href="/create-polygon" title="Create Polygon">
+        <img src="/images/plus.svg" alt="Go to Create Polygon" />
+      </a>
+      <a class="action" id="instance" href="#" title="Instance">
+        <img src="/images/map.svg" alt="Go to Instance" />
+      </a>
+    </div>
   </div>
   <div class="github-container">
     <a href="http://github.com/wijloc/leaflet-polygon-creator" target="_blank">Available on GitHub</a>
