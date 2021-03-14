@@ -42,11 +42,11 @@ const customers_data = JSON.parse(document.querySelector('[name=customers_data]'
 
 document.querySelector('[name=quantityCustomers]').value = customers_data.length;
 
-customers_data.forEach((customer)=>{
+/*customers_data.forEach((customer)=>{
   const customerMarker = L.marker([customer[0], customer[1]], { icon });
   customers.push(customerMarker);
   customerMarker.addTo(map);
-});
+});*/
 
 //lockers
 let lockers = [];
