@@ -29,6 +29,7 @@ server
 .get('/manage-lockers', pages.manageLockers)
 .post('/save-polygon-lockers', pages.savePolygonLockers)
 .get('/instance', pages.instance)
+.get('/polygons/:id/instance', pages.polygonInstance)
 
 //ligar o servidor
 server.listen(process.env.PORT || 5500, () => {

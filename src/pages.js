@@ -303,5 +303,11 @@ module.exports = {
       console.log(err);
       return res.send("Erro no banco de dados!");
     }
+  },
+  async polygonInstance(req, res){
+    const id = req.params.id;
+    const response = await api.get(`polygons/${id}/instance`)
+    const instanceObj = response.data;
+    return res.send(instanceObj.instance);
   }
 }
