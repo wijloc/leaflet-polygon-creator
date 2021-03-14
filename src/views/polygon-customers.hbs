@@ -33,13 +33,13 @@
         <div class="map">
           <header>
             <p>
-              Click to add point to polygon, points must be added in counterclockwise or clockwise order
+              Showing all {{#if source_lockers}}customers{{else}}lockers{{/if}} but only {{#if source_lockers}}lockers{{else}}customers{{/if}} of this polygon
             </p>
           </header>
           <div id="mapid"></div>
-          <fieldset>            
-            <input hidden name="polygon_id" value="{{polygon.id}}" />                        
-            <input hidden name="latlngs" value="{{points}}" />                        
+          <fieldset>
+            <input hidden name="polygon_id" value="{{polygon.id}}" />
+            <input hidden name="latlngs" value="{{points}}" />
             {{#if polygons}}
             <input hidden name="polygons" value="{{polygons}}" />
             {{else}}
@@ -85,7 +85,7 @@
           <div class="toolbar">
             <div class="tool" onClick="centerPolygon()">
               <img src="/images/aim.svg" alt="Center polygon on map" title="Center polygon on map" />
-            </div>            
+            </div>
           </div>
         </div>
       </div>

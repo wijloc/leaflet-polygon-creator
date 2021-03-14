@@ -66,6 +66,7 @@ module.exports = {
       //redirecionamento
       return res.redirect("/polygons");
     } catch (err) {
+      console.log(err);
       return res.send("Erro no banco de dados!");
     }
   },
@@ -135,6 +136,7 @@ module.exports = {
       //redirecionamento
       return res.redirect("/polygons");
     } catch (err) {
+      console.log(err);
       return res.send("Erro no banco de dados!");
     }
   },
@@ -152,7 +154,7 @@ module.exports = {
       const customers = responseCustomers.data;
       const customersArray = customers.map((customer) => ([customer.lat, customer.lng]))
 
-      const responseLockers = await api.get(`/lockers/${id}`)
+      const responseLockers = await api.get(`/lockers`)
       const lockers = responseLockers.data;
       const lockersArray = lockers.map((locker) => ([locker.lat, locker.lng]))
 
@@ -200,6 +202,7 @@ module.exports = {
       //redirecionamento
       return res.redirect("/polygons");
     } catch (err) {
+      console.log(err);
       return res.send("Erro no banco de dados!");
     }
   },
@@ -213,7 +216,7 @@ module.exports = {
       const points = responsePoints.data;
       const pointsArray = points.map((point) => ([point.lat, point.lng, point.order]))
 
-      const responseCustomers = await api.get(`/customers/${id}`)
+      const responseCustomers = await api.get(`/customers`)
       const customers = responseCustomers.data;
       const customersArray = customers.map((customer) => ([customer.lat, customer.lng]))
 
