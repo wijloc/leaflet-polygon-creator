@@ -30,7 +30,7 @@ if (document.querySelector('[name=polygons]').value) {
 drawPolygons();
 
 function drawPolygons() {
-  otherPolygons.forEach(polygon => {
+  polygons.forEach(polygon => {
     L.polygon(polygon.points, { color: '#312e38' }).addTo(map)
   });
 }

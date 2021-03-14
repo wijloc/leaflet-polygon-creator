@@ -294,7 +294,7 @@ module.exports = {
         }
       });
 
-      return res.render('polygon-customers', {
+      return res.render('instance', {
         polygons: JSON.stringify(polygons),
         customers: JSON.stringify(customersArray),
         lockers: JSON.stringify(lockersArray)
