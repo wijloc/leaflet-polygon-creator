@@ -28,8 +28,9 @@ server
 .post('/save-polygon-customers', pages.savePolygonCustomers)
 .get('/manage-lockers', pages.manageLockers)
 .post('/save-polygon-lockers', pages.savePolygonLockers)
+.get('/instance', pages.instance)
 
 //ligar o servidor
-server.listen(process.env.PORT || 5500, () => {  
+server.listen(process.env.PORT || 5500, () => {
   console.log(`Frontend started on port ${process.env.PORT || 5500} !`);
 });
