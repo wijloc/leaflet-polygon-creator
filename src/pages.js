@@ -309,5 +309,10 @@ module.exports = {
     const response = await api.get(`polygons/${id}/instance`)
     const instanceObj = response.data;
     return res.send(instanceObj.instance);
+  },
+  async lockersInstance(req, res){
+    const response = await api.get('lockers/instance')
+    const instanceObj = response.data;
+    return res.send(instanceObj.instance);
   }
 }
