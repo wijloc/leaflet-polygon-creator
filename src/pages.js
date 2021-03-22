@@ -12,7 +12,7 @@ module.exports = {
           id: polygon.id,
           area: polygon.area,
           name: polygon.name,
-          fileName: polygon.name.replaceAll(" ", "_")
+          fileName: polygon.name.replace(/ /g, '_')
         }
       });
       return res.render("polygons", { polygons });
