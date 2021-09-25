@@ -217,7 +217,7 @@ module.exports = {
       const points = responsePoints.data;
       const pointsArray = points.map((point) => ([point.lat, point.lng, point.order]))
 
-      const responseCustomers = await api.get(`/customers`)
+      const responseCustomers = await api.get(`/customers/${id}`)
       const customers = responseCustomers.data;
       const customersArray = customers.map((customer) => ([customer.lat, customer.lng]))
 
