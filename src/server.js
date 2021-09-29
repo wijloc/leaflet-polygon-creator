@@ -31,6 +31,7 @@ server
 .get('/instance', pages.instance)
 .get('/polygons/:id/instance', pages.polygonInstance)
 .get('/lockers-instance', pages.lockersInstance)
+.get('/polygons/:id/locker-instance', pages.polygonLockersInstance)
 
 //ligar o servidor
 server.listen(process.env.PORT || 5500, () => {
