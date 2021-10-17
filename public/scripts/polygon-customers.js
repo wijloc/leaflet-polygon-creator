@@ -23,6 +23,14 @@ const iconLocker = L.icon({
   popupAnchor: [170, 2],
 });
 
+//create icon
+const iconInfo = L.icon({
+  iconUrl: "/images/pin-info.svg",
+  iconSize: [28, 34],
+  iconAnchor: [14, 34],
+  popupAnchor: [170, 2],
+});
+
 let latlngs = [];
 if (document.querySelector('[name=latlngs]').value) {
   latlngs = JSON.parse(document.querySelector('[name=latlngs]').value);
@@ -54,10 +62,15 @@ function drawPolygon() {
 function drawOtherPolygons() {
   otherPolygons.forEach(polygon => {
     L.polygon(polygon.points, { color: '#9B111E' }).addTo(map)
+
+    //info pin
+    const polygonInfo = L.marker([polygon.points[0].lat, polygon.points[0].lng], { icon: iconInfo });
+    polygonInfo.bindTooltip(`${polygon.area} - ${polygon.name}`).openTooltip();
+    polygonInfo.addTo(map);
   });
 }
 
-//customers 
+//customers
 let customers = [];
 
 const customers_data = JSON.parse(document.querySelector('[name=customers_data]').value);
