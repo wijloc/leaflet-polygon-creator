@@ -143,6 +143,7 @@ module.exports = {
   },
   async manageCustomers(req, res) {
     id = req.query.id;
+    day = req.query.day;
     try {
       const responsePolygon = await api.get(`/polygons/${id}`)
       const polygon = responsePolygon.data;
@@ -151,7 +152,7 @@ module.exports = {
       const points = responsePoints.data;
       const pointsArray = points.map((point) => ([point.lat, point.lng, point.order]))
 
-      const responseCustomers = await api.get(`/customers/${id}`)
+      const responseCustomers = await api.get(`/customers/${id}/${day}`)
       const customers = responseCustomers.data;
       const customersArray = customers.map((customer) => ([customer.lat, customer.lng]))
 
@@ -175,7 +176,8 @@ module.exports = {
         points: JSON.stringify(pointsArray),
         polygons: JSON.stringify(filteredPolygons),
         customers: JSON.stringify(customersArray),
-        lockers: JSON.stringify(lockersArray)
+        lockers: JSON.stringify(lockersArray),
+        day,
       })
     } catch (err) {
       console.log(err);
@@ -183,7 +185,7 @@ module.exports = {
     }
   },
   async savePolygonCustomers(req, res) {
-    const { polygon_id, customers_data } = req.body;
+    const { polygon_id, customers_data, day } = req.body;
 
     customers = JSON.parse(customers_data);
 
@@ -197,7 +199,8 @@ module.exports = {
 
       await api.post('/customers', {
         polygon_id,
-        customers: customers_array
+        customers: customers_array,
+        day
       })
 
       //redirecionamento
@@ -217,7 +220,7 @@ module.exports = {
       const points = responsePoints.data;
       const pointsArray = points.map((point) => ([point.lat, point.lng, point.order]))
 
-      const responseCustomers = await api.get(`/customers/${id}`)
+      const responseCustomers = await api.get(`/customers/${id}/1`)
       const customers = responseCustomers.data;
       const customersArray = customers.map((customer) => ([customer.lat, customer.lng]))
 
@@ -274,40 +277,9 @@ module.exports = {
       return res.send("Erro no banco de dados!");
     }
   },
-  async instance(req, res) {
-    try {
-      const responseCustomers = await api.get(`/customers`)
-      const customers = responseCustomers.data;
-      const customersArray = customers.map((customer) => ([customer.lat, customer.lng]))
-
-      const responseLockers = await api.get(`/lockers`)
-      const lockers = responseLockers.data;
-      const lockersArray = lockers.map((locker) => ([locker.lat, locker.lng]))
-
-
-      const responsePolygons = await api.get('polygons');
-      const polygons = responsePolygons.data.map((polygon) => {
-        return {
-          id: polygon.id,
-          area: polygon.area,
-          name: polygon.name,
-          points: polygon.points
-        }
-      });
-
-      return res.render('instance', {
-        polygons: JSON.stringify(polygons),
-        customers: JSON.stringify(customersArray),
-        lockers: JSON.stringify(lockersArray)
-      })
-    } catch (err) {
-      console.log(err);
-      return res.send("Erro no banco de dados!");
-    }
-  },
   async polygonInstance(req, res){
-    const id = req.params.id;
-    const response = await api.get(`polygons/${id}/instance`)
+    const {id, day} = req.params;
+    const response = await api.get(`polygons/${id}/instance/${day}`)
     const instanceObj = response.data;
     return res.send(instanceObj.instance);
   },

@@ -39,6 +39,9 @@
           <div id="mapid"></div>
           <fieldset>
             <input hidden name="polygon_id" value="{{polygon.id}}" />
+            {{#if day}}
+            <input hidden name="day" value="{{day}}" />
+            {{/if}}
             <input hidden name="latlngs" value="{{points}}" />
             {{#if polygons}}
             <input hidden name="polygons" value="{{polygons}}" />

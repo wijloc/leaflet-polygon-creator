@@ -28,8 +28,7 @@ server
 .post('/save-polygon-customers', pages.savePolygonCustomers)
 .get('/manage-lockers', pages.manageLockers)
 .post('/save-polygon-lockers', pages.savePolygonLockers)
-.get('/instance', pages.instance)
-.get('/polygons/:id/instance', pages.polygonInstance)
+.get('/polygons/:id/instance/:day', pages.polygonInstance)
 .get('/lockers-instance', pages.lockersInstance)
 .get('/polygons/:id/locker-instance', pages.polygonLockersInstance)
 

@@ -33,13 +33,28 @@
             {{this.area}} - {{this.name}}
           </a>
           <div id="actions">
-            <a href="/polygons/{{this.id}}/instance" download="{{this.area}}_{{this.fileName}}.txt" class="download">
-              <img src="/images/download.svg" alt="Download Instance" style="width: 24px"/>
+            {{!-- Download dos dias --}}
+            <a href="/polygons/{{this.id}}/instance/1" download="{{this.area}}_1.txt" class="download">
+              1<img src="/images/download.svg" alt="Download Instance" style="width: 24px"/>
             </a>
+            <a href="/polygons/{{this.id}}/instance/2" download="{{this.area}}_2.txt" class="download">
+              2<img src="/images/download.svg" alt="Download Instance" style="width: 24px"/>
+            </a>
+            <a href="/polygons/{{this.id}}/instance/3" download="{{this.area}}_3.txt" class="download">
+              3<img src="/images/download.svg" alt="Download Instance" style="width: 24px"/>
+            </a>
+            <a href="/polygons/{{this.id}}/instance/4" download="{{this.area}}_4.txt" class="download">
+              4<img src="/images/download.svg" alt="Download Instance" style="width: 24px"/>
+            </a>
+            <a href="/polygons/{{this.id}}/instance/5" download="{{this.area}}_5.txt" class="download">
+              5<img src="/images/download.svg" alt="Download Instance" style="width: 24px"/>
+            </a>
+            {{!-- fim --}}
             <a href="/polygons/{{this.id}}/locker-instance" download="{{this.area}}.txt" class="download">
-              <img src="/images/download.svg" alt="Download Instance" style="width: 24px"/>
+              <img src="/images/download.svg" alt="Download Lockers" style="width: 24px"/>
+              <img src="/images/locker.svg" alt="Download Lockers" style="width: 24px"/>
             </a>
-            <a href="manage-customers?id={{this.id}}">
+            <a href="manage-customers?id={{this.id}}&day=1">
               <img src="/images/users.svg" alt="Manage Customers" />
             </a>
             <a href="manage-lockers?id={{this.id}}">
@@ -65,9 +80,6 @@
     <div id="tools">
       <a class="action" id="addNewPolygon" href="/create-polygon" title="Create Polygon">
         <img src="/images/plus.svg" alt="Go to Create Polygon" />
-      </a>
-      <a class="action" id="instance" href="/instance" title="Instance">
-        <img src="/images/map.svg" alt="Go to Instance" />
       </a>
       <a class="action" id="lockerInstance" href="/lockers-instance" title="Instance Lockers" download="lockers.txt">
         <img src="/images/download.svg" alt="Go to Instance Lockers" />
